@@ -1,0 +1,52 @@
+1) select * from users;
+
+2) select * from progress;
+
+3) select email_domain, count(*) as total_users from users where email_domain like '%.edu' group by email_domain order by total_users desc limit 25;
+
+4)select count(*) as ny_edu_users from users where email_domain like '%.edu' and postal like 'ny%';
+
+5)select count(*) as mobile_users from users where mobile_app = 'mobile-user';
+
+6) select  sign_up_at,strftime('%S', sign_up_at) FROM users GROUP BY 1 LIMIT 20;
+
+7) select strftime('%H', sign_up_at) as signup_hour,
+       count(*) as count
+from users
+group by signup_hour
+order by signup_hour;
+
+8)select *
+from users u
+join progress p on u.user_id = p.user_id
+limit 10;
+
+9) select u.email_domain,
+       avg(p.learn_cpp) as avg_cpp,
+       avg(p.learn_sql) as avg_sql,
+       avg(p.learn_html) as avg_html,
+       avg(p.learn_javascript) as avg_js,
+       avg(p.learn_java) as avg_java
+from users u
+join progress p on u.user_id = p.user_id
+where u.email_domain like '%.edu'
+group by u.email_domain
+order by u.email_domain;
+
+10) select avg(p.learn_cpp) as avg_cpp,
+       avg(p.learn_sql) as avg_sql,
+       avg(p.learn_html) as avg_html,
+       avg(p.learn_javascript) as avg_js,
+       avg(p.learn_java) as avg_java
+from users u
+join progress p on u.user_id = p.user_id
+where lower(u.postal) like 'ny%';
+
+11) select avg(p.learn_cpp) as avg_cpp,
+       avg(p.learn_sql) as avg_sql,
+       avg(p.learn_html) as avg_html,
+       avg(p.learn_javascript) as avg_js,
+       avg(p.learn_java) as avg_java
+from users u
+join progress p on u.user_id = p.user_id
+where lower(u.postal) like 'ch%';
